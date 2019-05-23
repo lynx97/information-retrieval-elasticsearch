@@ -1,0 +1,51 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+    <div class="content">
+        <div class="logo"><h1>INFORMATION RETRIEVAL</h1></div>
+        <div class="search">
+            <form action="{% url 'demo:search' '' 1%}" method="get">
+                {% csrf_token %}
+                <input type="text" placeholder="Nhập nội dung bạn cần tìm" name="textsearch" required>
+                <button type="submit">Tìm kiếm</button>
+            </form>
+            <a href="./advanced">Tìm kiếm nâng cao</a>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    body{
+        font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+    }
+    .content{
+        text-align: center;
+        margin-top: 12%;
+    }
+    .logo h1{
+        font-size: 40px;
+    }
+    .search input{
+        font-size: 16px;
+        width: 400px;
+        height: 46px;
+        border: 1px solid rgb(223, 225, 229);
+        line-height: 21px;
+        padding-left: 25px;
+    }
+    .search button{
+        height: 51px;
+        border: 1px solid rgb(223, 225, 229);
+        background: #3578E5;
+        cursor: pointer;
+        color: white;
+        transition: all 0.5s;
+    }
+    .search button:hover{
+        background: black;
+
+    }
+</style>

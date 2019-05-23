@@ -1,0 +1,135 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<div style="margin-left: 5%;">
+    <form action="{% url 'demo:advanced_search' 1%}" method="get">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-1">
+                <span>Tiêu đề</span>
+            </div>
+            <div class="col-md-9">
+                <input value="{{obj.title}}" class="form-control" type="text" name="title">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <span>Mô tả</span>
+            </div>
+            <div class="col-md-9">
+                <input value="{{obj.description}}" class="form-control" type="text" name="description">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <span>Nội dung</span>
+            </div>
+            <div class="col-md-9">
+                <input value="{{obj.content}}" class="form-control" type="text" name="content">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <span>Từ ngày</span>
+            </div>
+            <div class="col-md-2">
+                <input value="{{obj.date1}}" class="form-control" type="date" name="date1">
+            </div>
+            <div class="col-md-1">
+                <span>đến ngày</span>
+            </div>
+            <div class="col-md-2">
+                <input value="{{obj.date2}}" class="form-control" type="date" name="date2">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <button type="submit">Tìm kiếm</button>
+            </div>
+            <div class="col-md-4">
+                <div style="">Tìm được <b>{{cnt}}</b> kết quả sau khoảng <b>{{time}}s</b></div>
+            </div>
+        </div>
+        
+    </form>
+    
+</div>
+<div style="margin: 10px; font-size: 16px; margin-left: 30px;">
+    <div style="margin-left: 13%;margin-right: 10%;">
+        {% for item in res %}
+        {% if item.source.ishide == False %}
+            <div style="border-bottom: 1px dashed bisque;">
+                <a style="font-size: 18px;" href="{{item.source.url}}">
+                    {{item.source.title}}
+                </a>
+                <br>
+                <i style="font-size: 12px;">{{item.source.upload_time}}</i>
+                <p>
+                    {{item.source.description}}
+                </p>
+                <br>
+            </div>
+        {%endif%}
+        {% endfor %}
+    </div>
+    
+    <div style="text-align: center;" class="pagination">
+        {%if page_obj.isPrev%}
+            <a href="/demo/{{ page_obj.prev }}">&laquo;</a>
+        {%endif%}
+        {% for item in xxx %}
+            {%if item == page_obj.current%}
+                <a class="active">{{item}}</a>
+            {%endif%}
+            {%if item != page_obj.current%}
+                <a href="/demo/{{ item }}/{{obj.title}}/{{obj.description}}/{{obj.content}}/{{obj.date1}}/{{obj.date2}}">{{item}}</a>
+            {%endif%}
+            
+        {% endfor %}
+        {%if page_obj.isNext%}
+            <a href="/demo/{{ page_obj.next }}">&raquo;</a>
+        {%endif%}
+        
+    </div>
+</div>
+
+<style>
+    .search input{
+        font-size: 16px;
+        width: 400px;
+        height: 46px;
+        border: 1px solid rgb(223, 225, 229);
+        line-height: 21px;
+        padding-left: 25px;
+    }
+    .search button{
+        height: 51px;
+        border: 1px solid rgb(223, 225, 229);
+        background: #3578E5;
+        cursor: pointer;
+        color: white;
+        transition: all 0.5s;
+    }
+    .search button:hover{
+        background: black;
+
+    }
+    .pagination {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .pagination a {
+        color: black;
+        /* float: left; */
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+</style>
